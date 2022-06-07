@@ -1,0 +1,17 @@
+{
+  "name": "4players/odin-tokens",
+  "type": "library",
+  "description": "A lightweight token generator for 4Players ODIN",
+  "homepage": "https://www.4players.io",
+  "keywords": ["jwt", "authentication", "ed25519"],
+  "minimum-stability": "dev",
+  "license": "ISC",
+  "authors": [
+    {
+      "name": "Sven Paulsen",
+      "email": "sven@4players.io"
+    }
+  ],
+  "require": {
+  }
+}
