@@ -35,21 +35,16 @@ final class TokenGenerator
   /**
    * Creates a new token.
    *
-   * @param  string $roomId
-   * @param  string $userId
-   * @param  array  $options
+   * @param  array|string $roomId
+   * @param  string       $userId
+   * @param  array        $options
    * @return string
    */
   public function createToken($roomId, $userId, $options = array())
   {
-    $header = array(
-      "alg" => "EdDSA",
-      "kid" => $this->accessKey->getKeyId(),
-    );
-
-    $claims = array_filter(array(
-      "rid" => $roomId,
-      "uid" => $userId,
+    $ridsClaims = is_array($roomId) ? array("rids" => $roomId) : array("rid" => strval($roomId));
+    $moreClaims = array_filter(array(
+      "uid" => strval($userId),
       "cid" => isset($options["customer"]) ?? strval($options["customer"]),
       "sub" => "connect",
       "aud" => isset($options["audience"]) ?? strval($options["audience"]),
@@ -59,7 +54,8 @@ final class TokenGenerator
       return $v !== false;
     });
 
-    $mesg = $this->base64UrlEncode(json_encode($header)) . "." . $this->base64UrlEncode(json_encode($claims));
+    $head = array("alg" => "EdDSA", "kid" => $this->accessKey->getKeyId());
+    $mesg = $this->base64UrlEncode(json_encode($head)) . "." . $this->base64UrlEncode(json_encode(array_merge($ridsClaims, $moreClaims)));
     $sign = \ParagonIE_Sodium_Core_Ed25519::sign($mesg, base64_decode($this->accessKey->getSecretKey()));
 
     return $mesg . "." . $this->base64UrlEncode($sign);
