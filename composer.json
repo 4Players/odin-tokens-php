@@ -17,6 +17,6 @@
   },
   "require": {
     "php": ">=7.2",
-    "paragonie/sodium_compat": "*"
+    "paragonie/sodium_compat": "1.*"
   }
 }
