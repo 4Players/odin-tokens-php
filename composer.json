@@ -12,6 +12,11 @@
       "email": "sven@4players.io"
     }
   ],
+  "autoload": {
+    "psr-4": { "FourPlayers\\Odin\\": "src" }
+  },
   "require": {
+    "php": ">=7.2",
+    "paragonie/sodium_compat": "*"
   }
 }
