@@ -135,4 +135,17 @@ final class AccessKey
 
     return $crc;
   }
+
+  /**
+   * Creates a new AccessKey instance using a specified string.
+   *
+   * @param $string
+   * @throws \Exception
+   * @throws \SodiumException
+   * @return \FourPlayers\Odin\AccessKey
+   */
+  public static function fromString($string)
+  {
+    return new self($string);
+  }
 }
