@@ -14,26 +14,26 @@ final class AccessKey
    *
    * @var string
    */
-  private $seed = "";
+  private $seed;
 
   /**
    * Stores the raw public key string of the current access key.
    *
    * @var string
    */
-  private $pk = "";
+  private $pk;
 
   /**
    * Stores the raw secret key string  of the current access key.
    *
    * @var string
    */
-  private $sk = "";
+  private $sk;
 
   /**
    * The AccessKey constructor.
    *
-   * @param $string
+   * @param  string $string
    * @throws \Exception
    * @throws \SodiumException
    */
@@ -139,7 +139,7 @@ final class AccessKey
   /**
    * Creates a new AccessKey instance using a specified string.
    *
-   * @param $string
+   * @param  string $string
    * @throws \Exception
    * @throws \SodiumException
    * @return \FourPlayers\Odin\AccessKey
