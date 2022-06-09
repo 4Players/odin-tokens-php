@@ -32,10 +32,18 @@ final class AccessKey
 
   /**
    * The AccessKey constructor.
+   *
+   * @param $string
+   * @throws \Exception
+   * @throws \SodiumException
    */
   public function __construct($string = null)
   {
     $this->seed = $string ? base64_decode($string) : $this->generate();
+
+    if (ord($this->seed[0]) !== 0x01 || strlen($this->seed) !== 33 || $this->crc8(substr($this->seed, 1)) !== 0) {
+      throw new \Exception("invalid access key");
+    }
 
     \ParagonIE_Sodium_Core_Ed25519::seed_keypair($this->pk, $this->sk, substr($this->seed, 1));
   }
