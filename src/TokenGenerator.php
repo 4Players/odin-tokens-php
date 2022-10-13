@@ -42,8 +42,8 @@ final class TokenGenerator
    */
   public function createToken($roomId, $userId, $options = array())
   {
-    $ridsClaims = is_array($roomId) ? array("rids" => $roomId) : array("rid" => strval($roomId));
-    $moreClaims = array_filter(array(
+    $claims = array_filter(array(
+      "rid" => $roomId,
       "uid" => strval($userId),
       "cid" => isset($options["customer"]) ?? strval($options["customer"]),
       "sub" => "connect",
@@ -55,7 +55,7 @@ final class TokenGenerator
     });
 
     $head = array("alg" => "EdDSA", "kid" => $this->accessKey->getKeyId());
-    $mesg = $this->base64UrlEncode(json_encode($head)) . "." . $this->base64UrlEncode(json_encode(array_merge($ridsClaims, $moreClaims)));
+    $mesg = $this->base64UrlEncode(json_encode($head)) . "." . $this->base64UrlEncode(json_encode($claims));
     $sign = \ParagonIE_Sodium_Core_Ed25519::sign($mesg, base64_decode($this->accessKey->getSecretKey()));
 
     return $mesg . "." . $this->base64UrlEncode($sign);
