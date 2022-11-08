@@ -66,7 +66,7 @@ final class AccessKey
   public function getKeyId()
   {
     $hash = hash("sha512", $this->pk, true);
-    $data = array(0x01);
+    $data = array(0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
 
     for ($i = 0, $x = 0; $i < 8; $i++) {
       for ($j = 0; $j < 8; $j++, $x++) {
