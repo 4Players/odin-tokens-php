@@ -45,21 +45,22 @@ final class TokenGenerator
     $claims = array_filter(array(
       "rid" => $roomId,
       "uid" => strval($userId),
-      "cid" => isset($options["customer"]) ?? strval($options["customer"]),
-      "sub" => "connect",
-      "aud" => isset($options["audience"]) ?? strval($options["audience"]),
+      "cid" => isset($options["customer"]) ? strval($options["customer"]) : null,
+      "sub" => isset($options["audience"]) && $options["audience"] == "sfu" ? "login" : "connect",
+      "aud" => isset($options["audience"]) ? strval($options["audience"]) : null,
       "exp" => time() + (isset($options["lifetime"]) ? intval($options["audience"]) : 300),
       "nbf" => time(),
     ), function($v) {
-      return $v !== false;
+      return $v !== null;
     });
 
     $head = array("alg" => "EdDSA", "kid" => $this->accessKey->getKeyId());
     $mesg = $this->base64UrlEncode(json_encode($head)) . "." . $this->base64UrlEncode(json_encode($claims));
-    $sign = \ParagonIE_Sodium_Core_Ed25519::sign($mesg, base64_decode($this->accessKey->getSecretKey()));
+    $sign = \ParagonIE_Sodium_Core_Ed25519::sign_detached($mesg, base64_decode($this->accessKey->getSecretKey()));
 
     return $mesg . "." . $this->base64UrlEncode($sign);
   }
+
 
   /**
    *  Encodes data with MIME base64 in an URL-safe variant.
