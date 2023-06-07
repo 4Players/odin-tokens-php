@@ -46,7 +46,7 @@ final class TokenGenerator
       "rid" => $roomId,
       "uid" => strval($userId),
       "cid" => isset($options["customer"]) ? strval($options["customer"]) : null,
-      "sub" => isset($options["audience"]) && $options["audience"] == "sfu" ? "login" : "connect",
+      "sub" => isset($options["subjects"]) ? $options["subjects"] : "connect",
       "aud" => isset($options["audience"]) ? strval($options["audience"]) : null,
       "exp" => time() + (isset($options["lifetime"]) ? intval($options["lifetime"]) : 300),
       "nbf" => time(),
@@ -63,7 +63,7 @@ final class TokenGenerator
 
 
   /**
-   *  Encodes data with MIME base64 in an URL-safe variant.
+   * Encodes data with MIME base64 in an URL-safe variant.
    *
    * @param  string $data
    * @return string
