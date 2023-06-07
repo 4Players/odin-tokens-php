@@ -48,7 +48,7 @@ final class TokenGenerator
       "cid" => isset($options["customer"]) ? strval($options["customer"]) : null,
       "sub" => isset($options["audience"]) && $options["audience"] == "sfu" ? "login" : "connect",
       "aud" => isset($options["audience"]) ? strval($options["audience"]) : null,
-      "exp" => time() + (isset($options["lifetime"]) ? intval($options["audience"]) : 300),
+      "exp" => time() + (isset($options["lifetime"]) ? intval($options["lifetime"]) : 300),
       "nbf" => time(),
     ), function($v) {
       return $v !== null;
