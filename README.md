@@ -1,10 +1,11 @@
 # 4players/odin-tokens
 
-This is a lightweight package to generate API keys and tokens used by 4Players ODIN.
+This is a lightweight package to generate API keys and tokens used for ODIN Voice by 4Players.
 
-4Players ODIN is a cross-platform software development kit (SDK) that enables developers to integrate voice and video chat technology into multiplayer games, apps and websites.
+[ODIN Voice](https://odin.4players.io/voice-chat/) by [4Players GmbH](https://www.4players.io/company/about_us/) is a cross-platform software development kit (SDK)
+that enables developers to integrate voice and video chat technology into multiplayer games, apps and websites.
+Check out our [full online documentation](https://docs.4players.io/voice/)!
 
-[Online Documentation](https://developers.4players.io/odin)
 
 ## Flowchart
 
